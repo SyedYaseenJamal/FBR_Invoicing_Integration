@@ -4,6 +4,7 @@ using FBR_Invoicing_Integration.AppDb;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FBR_Invoicing_Integration.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250918120959_SellerEntityPropertiesAdded")]
+    partial class SellerEntityPropertiesAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -55,31 +58,11 @@ namespace FBR_Invoicing_Integration.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("BuyerAddress")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("BuyerId")
                         .HasColumnType("int");
 
-                    b.Property<string>("BuyerName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("BuyerRegistrationNo")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("BuyerType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime>("DateTime")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("DestinationOfSupply")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FbrInvoiceId")
                         .IsRequired()
@@ -89,19 +72,7 @@ namespace FBR_Invoicing_Integration.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("InvoiceType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("QrCode")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SaleOriginProvince")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SaleType")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -135,34 +106,11 @@ namespace FBR_Invoicing_Integration.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("ExtraTax")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("FixedRetailPrice")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("FurtherTax")
-                        .HasColumnType("decimal(18,2)");
-
                     b.Property<int>("InvoiceId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ItemHsCode")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ItemSrNo")
                         .HasColumnType("int");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
-
-                    b.Property<decimal>("STWithheldAtSource")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("SroScheduleNo")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("TaxAmount")
                         .HasColumnType("decimal(18,2)");
@@ -173,17 +121,7 @@ namespace FBR_Invoicing_Integration.Migrations
                     b.Property<decimal>("Total")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<decimal>("TotalValue")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("UOM")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<decimal>("UnitPrice")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("ValueOfSalesExclST")
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");

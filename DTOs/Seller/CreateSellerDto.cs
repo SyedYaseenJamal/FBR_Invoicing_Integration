@@ -1,15 +1,12 @@
-﻿namespace FBR_Invoicing_Integration.Models
+﻿namespace FBR_Invoicing_Integration.DTOs.Seller
 {
-    public class SellerEntity
+    public class CreateSellerDto
     {
-        public int Id { get; set; } 
         public string Name { get; set; }
         public string NTN { get; set; }
         public string Email { get; set; }
         public string BusinessName { get; set; }
         public string Address { get; set; }
         public string ContactNumber { get; set; }
-
-        public List<InvoiceEntity> Invoices { get; set; }
     }
 }
