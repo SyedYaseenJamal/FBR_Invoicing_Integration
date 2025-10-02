@@ -17,6 +17,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IAuthService, AuthServices>();
 builder.Services.AddScoped<IInvoiceServices, InvoiceServices>();
+builder.Services.AddScoped<IFbrService, FbrMockService>();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
