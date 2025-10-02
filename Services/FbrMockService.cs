@@ -5,6 +5,13 @@ namespace FBR_Invoicing_Integration.Services
 {
     public class FbrMockService : IFbrService
     {
+        private readonly IQrCodeService _qrCodeService;
+
+        public FbrMockService(IQrCodeService qrCodeService)
+        {
+            _qrCodeService = qrCodeService;
+        }
+
         public Task<string> AuthenticateAsync(string clientId, string clientSecret)
         {
             if (clientId == "test-client" && clientSecret == "test-secret")
@@ -26,9 +33,11 @@ namespace FBR_Invoicing_Integration.Services
             if (expectedTax != invoice.SalesTax)
                 return Task.FromResult((string.Empty, string.Empty, "FAILED", "Sales tax mismatch"));
 
+            string qrCodeBase64 = _qrCodeService.GenerateQrCode($"InvoiceId:{Guid.NewGuid()}|Buyer:{invoice.BuyerName}");
+
             return Task.FromResult((
                 Guid.NewGuid().ToString(),
-                $"MOCK-QR-{Guid.NewGuid()}",
+                qrCodeBase64,
                 "SUCCESS",
                 "Invoice accepted in MOCK FBR"
             ));
