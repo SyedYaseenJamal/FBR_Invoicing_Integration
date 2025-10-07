@@ -4,16 +4,32 @@ using FBR_Invoicing_Integration.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Serilog;
 using System.Text;
 
-var builder = WebApplication.CreateBuilder(args);
+var logPath = Path.Combine(AppContext.BaseDirectory, "Logs", "log-.txt");
+Directory.CreateDirectory(Path.GetDirectoryName(logPath)!);
 
+Log.Logger = new LoggerConfiguration()
+    .MinimumLevel.Debug()
+    .WriteTo.Console()
+    .WriteTo.File(
+        logPath,
+        rollingInterval: RollingInterval.Day,
+        retainedFileCountLimit: 7,
+        encoding: Encoding.UTF8
+    )
+    .CreateLogger();
+
+var builder = WebApplication.CreateBuilder(args);
+builder.Host.UseSerilog();
 // Add services to the container.
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
 
 builder.Services.AddScoped<IAuthService, AuthServices>();
 builder.Services.AddScoped<IInvoiceServices, InvoiceServices>();
