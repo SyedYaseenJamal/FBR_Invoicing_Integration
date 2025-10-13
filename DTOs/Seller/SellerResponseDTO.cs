@@ -1,6 +1,6 @@
 ﻿namespace FBR_Invoicing_Integration.DTOs.Seller
 {
-    public class SellerDto
+    public class SellerResponseDTO
     {
         public int Id { get; set; }
         public string Name { get; set; }

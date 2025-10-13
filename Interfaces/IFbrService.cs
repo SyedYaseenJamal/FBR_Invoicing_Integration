@@ -9,4 +9,3 @@ namespace FBR_Invoicing_Integration.Interfaces
         Task<(string Status, DateTime VerifiedAt)> GetInvoiceStatusAsync(string invoiceId);
     }
 }
-}

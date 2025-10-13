@@ -24,15 +24,19 @@ namespace FBR_Invoicing_Integration.Services
         public Task<(string FbrInvoiceId, string QrCode, string Status, string Message)> SubmitInvoiceAsync(InvoiceEntity invoice)
         {
             if (string.IsNullOrEmpty(invoice.BuyerName))
+            {
                 return Task.FromResult((string.Empty, string.Empty, "FAILED", "Buyer name is required"));
+            }
 
             if (invoice.Items == null || !invoice.Items.Any())
+            {
                 return Task.FromResult((string.Empty, string.Empty, "FAILED", "At least one invoice item required"));
-
+            }  
             var expectedTax = invoice.Items.Sum(x => x.TaxAmount);
             if (expectedTax != invoice.SalesTax)
+            {
                 return Task.FromResult((string.Empty, string.Empty, "FAILED", "Sales tax mismatch"));
-
+            }
             string qrCodeBase64 = _qrCodeService.GenerateQrCode($"InvoiceId:{Guid.NewGuid()}|Buyer:{invoice.BuyerName}");
 
             return Task.FromResult((

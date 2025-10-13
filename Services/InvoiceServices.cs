@@ -69,8 +69,10 @@ namespace FBR_Invoicing_Integration.Services
         {
             var invoice = await _context.Invoices.Include(i => i.Items).FirstOrDefaultAsync(i => i.Id == id);
 
-            if (invoice == null) throw new KeyNotFoundException("Invoice not found");
-
+            if (invoice == null)
+            {
+                throw new KeyNotFoundException("Invoice not found");
+            }
             invoice.InvoiceNumber = dto.InvoiceNumber;
             invoice.DateTime = dto.DateTime;
             invoice.TotalAmount = dto.TotalAmount;

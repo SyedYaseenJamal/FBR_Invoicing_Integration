@@ -1,11 +1,13 @@
 ﻿using FBR_Invoicing_Integration.DTOs.Invoice;
 using FBR_Invoicing_Integration.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FBR_Invoicing_Integration.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class InvoiceController : ControllerBase
     {
         private readonly IInvoiceServices _invoiceService;

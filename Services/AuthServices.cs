@@ -30,8 +30,7 @@ namespace FBR_Invoicing_Integration.Services
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                new Claim(ClaimTypes.Name, user.Username),
-                new Claim(ClaimTypes.Role, user.Role)
+                new Claim(ClaimTypes.Name, user.Username)
                 }),
                 Expires = DateTime.UtcNow.AddMinutes(int.Parse(_configuration["Jwt:ExpireMinutes"])),
                 Issuer = _configuration["Jwt:Issuer"],
@@ -51,11 +50,11 @@ namespace FBR_Invoicing_Integration.Services
 
         public async Task<UserEntity> RegisterUserAsync(RegisterationDTO dto)
         {
-            var existingUser = await _dbContext.Users
-                .FirstOrDefaultAsync(u => u.Username == dto.Username || u.Email == dto.Email);
+            var existingUser = await _dbContext.Users.FirstOrDefaultAsync(u => u.Username == dto.Username || u.Email == dto.Email);
             if (existingUser != null)
+            {
                 throw new Exception("Username or Email already exists");
-
+            }
             string hashedPassword = BCrypt.Net.BCrypt.HashPassword(dto.Password);
 
             var user = new UserEntity
@@ -63,7 +62,6 @@ namespace FBR_Invoicing_Integration.Services
                 Username = dto.Username,
                 PasswordHash = hashedPassword,
                 Email = dto.Email,
-                Role = dto.Role ?? "User"
             };
 
             _dbContext.Users.Add(user);
